@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Start screen -->
+      <section id="start-screen" class="screen">
+        <h1 class="title">Quiz Time!</h1>
+        <p class="desc">Test your knowledge with these fun questions</p>
+        <button id="start-btn" class="btn">Start Quiz</button>
+      </section>
+      <!-- Quiz screen -->
+      <section id="quiz-screen" class="screen">
+        <!-- Header -->
+        <div class="quiz-header">
+          <h2 id="question-text">QuestionHere</h2>
+          <div class="quiz-info">
+            <p class="desc">
+              Question <span id="current-question"></span> of
+              <span class="total-questions"></span>
+            </p>
+            <p class="desc">Score: <span id="score"></span></p>
+          </div>
+        </div>
+        <!-- Answers -->
+        <div class="answers-container">
+          <button class="answer-btn correct">Bruh</button>
+          <button class="answer-btn incorrect">Bruh</button>
+          <button class="answer-btn">Bruh</button>
+          <button class="answer-btn">Bruh</button>
+        </div>
+        <!-- Progress -->
+        <div class="progress-bar">
+          <div id="progress" class="progress"></div>
+        </div>
+      </section>
+      <!-- Result screen -->
+      <section id="result-screen" class="screen active">
+        <h1 class="title">Quiz Results</h1>
+        <div class="result-info">
+          <p class="desc">
+            You score <span id="final-score"></span> out of
+            <span id="max-score"></span>
+          </p>
+          <p id="result-message">Good job!</p>
+        </div>
+        <button id="restart-btn" class="btn">Restart Quiz</button>
+      </section>
+    </div>
+    <script src="./assets/main.js"></script>
+  </body>
+</html>
