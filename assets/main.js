@@ -62,3 +62,94 @@ const quizQuestions = [
     ],
   },
 ];
+
+let currentQuestionIndex = 0;
+let score = 0;
+let answerDisabled = false;
+
+totalQuestionsSpan.textContent = quizQuestions.length;
+maxScoreSpan.textContent = quizQuestions.length;
+
+startButton.addEventListener("click", startQuiz);
+restartButton.addEventListener("click", restartQuiz);
+
+function startQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+
+  startScreen.classList.remove("active");
+  quizScreen.classList.add("active");
+
+  showQuestion();
+}
+
+function showQuestion() {
+  currentQuestionSpan.textContent = currentQuestionIndex + 1;
+  scoreSpan.textContent = score;
+
+  answerDisabled = false;
+  answersContainer.innerHTML = "";
+
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+  questionText.textContent = currentQuestion.question;
+  currentQuestion.answers.forEach((answer) => {
+    const button = document.createElement("button");
+    button.classList.add("answer-btn");
+    button.textContent = answer.text;
+    button.dataset.correct = answer.correct;
+    console.log(button);
+    answersContainer.appendChild(button);
+
+    button.addEventListener("click", selectAnswer);
+  });
+}
+
+function selectAnswer(event) {
+  if (answerDisabled) return;
+  answerDisabled = true;
+
+  const selectedButton = event.target;
+  const isCorrect = selectedButton.dataset.correct === "true";
+
+  if (isCorrect) {
+    selectedButton.classList.add("correct");
+    score++;
+    scoreSpan.textContent = score;
+  } else {
+    selectedButton.classList.add("incorrect");
+  }
+
+  setTimeout(() => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < quizQuestions.length) {
+      showQuestion();
+    } else {
+      showResult();
+    }
+  }, 1000);
+}
+
+function showResult() {
+  quizScreen.classList.remove("active");
+  resultScreen.classList.add("active");
+
+  finalScoreSpan.textContent = score;
+  const percentage = (score / quizQuestions.length) * 100;
+
+  if (percentage === 100) {
+    resultMessage.textContent = "Perfect! You're a genius!";
+  } else if (percentage >= 80) {
+    resultMessage.textContent = "Great job! You know your stuff!";
+  } else if (percentage >= 60) {
+    resultMessage.textContent = "Good effort! Keep learning!";
+  } else if (percentage >= 40) {
+    resultMessage.textContent = "Not bad! Try a gain to improve!";
+  } else {
+    resultMessage.textContent = "Keep studying! You'll get better";
+  }
+}
+
+function restartQuiz() {
+  resultScreen.classList.remove("active");
+  startQuiz();
+}
