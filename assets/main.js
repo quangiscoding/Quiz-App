@@ -87,17 +87,20 @@ function showQuestion() {
   currentQuestionSpan.textContent = currentQuestionIndex + 1;
   scoreSpan.textContent = score;
 
+  const progressPercent = (currentQuestionIndex / quizQuestions.length) * 100;
+  progressBar.style.width = progressPercent + "%";
+
   answerDisabled = false;
   answersContainer.innerHTML = "";
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
   questionText.textContent = currentQuestion.question;
+
   currentQuestion.answers.forEach((answer) => {
     const button = document.createElement("button");
     button.classList.add("answer-btn");
     button.textContent = answer.text;
     button.dataset.correct = answer.correct;
-    console.log(button);
     answersContainer.appendChild(button);
 
     button.addEventListener("click", selectAnswer);
